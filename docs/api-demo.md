@@ -127,6 +127,28 @@ Keep-Alive: timeout=15
 }
 ```
 
+## PUT → 201 OK
+
+```
+http PUT :9001/books/9999999999 isbn=9999999999 title="New Book" author="Someone" price:=5.00
+```
+
+```
+HTTP/1.1 201
+Connection: keep-alive
+Content-Type: application/json
+Date: Tue, 03 Nov 2026 04:33:36 GMT
+Keep-Alive: timeout=15
+Transfer-Encoding: chunked
+
+{
+    "author": "Someone",
+    "isbn": "9999999999",
+    "price": 5.0,
+    "title": "New Book"
+}
+```
+
 ## DELETE /books/{isbn} → 204 No Content
 
 ```

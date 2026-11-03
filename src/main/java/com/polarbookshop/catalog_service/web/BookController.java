@@ -5,6 +5,7 @@ import com.polarbookshop.catalog_service.domain.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("books")
@@ -39,7 +40,10 @@ public class BookController {
     }
 
     @PutMapping("{isbn}")
-    public Book put(@PathVariable String isbn, @Valid @RequestBody Book book) {
-        return bookService.editBookDetails(isbn, book);
+    public ResponseEntity<Book> put(@PathVariable String isbn, @Valid @RequestBody Book book) {
+        var result = bookService.editBookDetails(isbn, book);
+        var status = result.created() ? HttpStatus.CREATED : HttpStatus.OK;
+        return ResponseEntity.status(status).body(result.book());
     }
+
 }
